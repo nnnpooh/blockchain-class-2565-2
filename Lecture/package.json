@@ -1,0 +1,17 @@
+{
+  "name": "lecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@marp-team/marp-cli": "^2.2.0",
+    "@marp-team/marpit": "^2.4.2"
+  },
+  "scripts": {
+    "html": "npx marp --html",
+    "pdf": "npx marp --pdf --allow-local-files"
+  }
+}
