@@ -6,21 +6,21 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "myfunc2",
+				"outputs": [
 					{
-						"internalType": "string",
-						"name": "messageNew",
-						"type": "string"
+						"internalType": "int256",
+						"name": "",
+						"type": "int256"
 					}
 				],
-				"name": "change",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "message",
+				"name": "myfunc3",
 				"outputs": [
 					{
 						"internalType": "string",
@@ -28,7 +28,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"stateMutability": "pure",
 				"type": "function"
 			}
 		],
@@ -45,7 +45,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"codes/C01 - msg/msg.sol": "MessageFromMe"
+			"codes/T04/C2_local_variables.sol": "local_variables"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -59,12 +59,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"codes/C01 - msg/msg.sol": {
-			"keccak256": "0x4ac2a105d779c914d22ecfefde3150f656f70c65498bffb0ea5c71f3d1448041",
+		"codes/T04/C2_local_variables.sol": {
+			"keccak256": "0x75bb36d12ba64d7b6ae8d623fc89a6f84ce858d3075affab8c6f382e4657c608",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://c9e84f05c3cf3f10fd0ad57bc5f5707b908f74b3adc1aede415c3b7a23513d82",
-				"dweb:/ipfs/QmdyynyE8YGKQ5Qvf6CH949kck5CWNnPAkFHU4qSzmfgBz"
+				"bzz-raw://62dd0cb8de18f1347f42a997b49134ab5cb4771073b726b0cc90b41247a2e8cb",
+				"dweb:/ipfs/QmUYa9TfqVWFDoRJnCrsxtvsLoQ3yARUYEhHwpimg7WSDR"
 			]
 		}
 	},
