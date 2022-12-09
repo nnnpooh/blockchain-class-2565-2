@@ -2,13 +2,13 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract state_variables {
+contract myFirstContract {
     uint256 a; // private by default
-    uint256 public b; // 0 by default
+    uint256 public b;
 
-    // This statement does not work.
+    // This does not work.
     // b = 10
 
     uint256 public c = 10;
-    uint256 public constant d = 100; // Cannot set this
+    uint256 public constant d = 100; // Constant, cannot change value
 }
