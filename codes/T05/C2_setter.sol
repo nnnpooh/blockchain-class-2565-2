@@ -3,23 +3,22 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 contract setter {
+    uint256 a; // private by default
+    uint256 public constant b = 20;
+    string public name = "John";
 
-    uint a; // private by default
-    uint public constant b = 20;
-    string public name = 'John';
-
-    function get_a() public view returns(uint) {
+    function get_a() public view returns (uint256) {
         return a;
-    } 
+    }
 
-    function set_a(uint _a) public {
+    function set_a(uint256 _a) public {
         a = _a;
     }
 
     // Error
-    // function set_d(uint _b) public {
+    // function set_b(uint _b) public {
     //     b = _b;
-    // }    
+    // }
 
     function set_name(string memory newName) public {
         name = newName;
@@ -30,5 +29,4 @@ contract setter {
     //     name = newName;
     //     return newName;
     // }
-
 }
