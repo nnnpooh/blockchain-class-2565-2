@@ -45,6 +45,11 @@ contract Auction {
         _;
     }
 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "You need to be an owner.");
+        _;
+    }
+
     function min(uint256 a, uint256 b) internal pure returns (uint256) {
         if (a <= b) {
             return a;
@@ -81,5 +86,45 @@ contract Auction {
             highestBindingBid = min(currentBid, highestBid + bidIncrement);
             highestBidder = payable(msg.sender);
         }
+    }
+
+    function cancelAuction() public onlyOwner {
+        auctionState = State.Cancelled;
+    }
+
+    function finalizeAuction() public {
+        require(auctionState == State.Cancelled || block.number > endBlock);
+        require(msg.sender == owner || bids[msg.sender] > 0);
+
+        address payable recipient;
+        uint256 value;
+
+        if (auctionState == State.Cancelled) {
+            // Auction cancelled
+            recipient = payable(msg.sender);
+            value = bids[msg.sender];
+        } else {
+            // Auction ended
+            if (msg.sender == owner) {
+                // This is the owner.
+                recipient = owner;
+                value = highestBindingBid;
+            } else {
+                if (msg.sender == highestBidder) {
+                    recipient = highestBidder;
+                    value = bids[highestBidder] - highestBindingBid;
+                } else {
+                    // Bidders who did not win.
+                    recipient = payable(msg.sender);
+                    value = bids[msg.sender];
+                }
+            }
+        }
+
+        // Resetting the bids to zero
+        bids[recipient] = 0;
+
+        // Transfer the value.
+        recipient.transfer(value);
     }
 }

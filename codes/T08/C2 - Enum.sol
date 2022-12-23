@@ -2,10 +2,11 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-
 contract Enum {
-
-    enum State {Open, Closed}
+    enum State {
+        Open,
+        Closed
+    }
     State public auctionState;
 
     function close() public {
@@ -15,5 +16,4 @@ contract Enum {
     function open() public {
         auctionState = State.Open;
     }
-
 }

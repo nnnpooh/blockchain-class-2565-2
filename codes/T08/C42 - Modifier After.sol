@@ -2,10 +2,8 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-
 contract Modifier {
-
-    uint public price;
+    uint256 public price;
     address public owner;
 
     constructor() {
@@ -13,7 +11,7 @@ contract Modifier {
         owner = msg.sender;
     }
 
-    modifier onlyOwner(){
+    modifier onlyOwner() {
         require(owner == msg.sender, "You need to be an owner.");
         _;
     }
@@ -22,7 +20,7 @@ contract Modifier {
         owner = _owner;
     }
 
-    function setPrice(uint _price) public onlyOwner {
+    function setPrice(uint256 _price) public onlyOwner {
         price = _price;
     }
 }
