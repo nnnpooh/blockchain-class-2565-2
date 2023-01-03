@@ -2,7 +2,7 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract AuctionCreator{
+contract AuctionFactory {
     Auction[] public auctions;
 
     function createAuction() public {
@@ -31,10 +31,11 @@ contract Auction {
     uint256 bidIncrement;
 
     constructor(address eoa) {
+        // owner = payable(msg.sender);
         owner = payable(eoa);
         auctionState = State.Running;
         startBlock = block.number;
-        endBlock = startBlock + 5; // change this to make the auction period shorter 
+        endBlock = startBlock + 5; // change this to make the auction period shorter
         bidIncrement = 100;
         highestBindingBid = 0; // not necessary
     }
@@ -102,8 +103,14 @@ contract Auction {
     }
 
     function finalizeAuction() public {
-        require(auctionState == State.Cancelled || block.number > endBlock, "Cannot finalize, the auction is still ongoing.");
-        require(msg.sender == owner || bids[msg.sender] > 0, "You are not the owner or have not balance remaining.");
+        require(
+            auctionState == State.Cancelled || block.number > endBlock,
+            "Cannot finalize, the auction is still ongoing."
+        );
+        require(
+            msg.sender == owner || bids[msg.sender] > 0,
+            "You are not the owner or have not balance remaining."
+        );
 
         address payable recipient;
         uint256 value;
