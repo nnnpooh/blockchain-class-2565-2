@@ -2,6 +2,15 @@
 
 pragma solidity >=0.7.0 <0.9.0;
 
+contract AuctionCreator{
+    Auction[] public auctions;
+
+    function createAuction() public {
+        Auction newAuction = new Auction(msg.sender);
+        auctions.push(newAuction);
+    }
+}
+
 contract Auction {
     address payable public owner;
     uint256 public startBlock;
@@ -21,8 +30,8 @@ contract Auction {
     mapping(address => uint256) public bids;
     uint256 bidIncrement;
 
-    constructor() {
-        owner = payable(msg.sender);
+    constructor(address eoa) {
+        owner = payable(eoa);
         auctionState = State.Running;
         startBlock = block.number;
         endBlock = startBlock + 5; // change this to make the auction period shorter 
