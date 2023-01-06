@@ -3,7 +3,7 @@
 pragma solidity >=0.7.0 <0.9.0;
 
 // Cannot deploy this contract
-interface BaseContract { 
+interface BaseContract {
     // int public x;
     // address public owner;
 
@@ -13,17 +13,15 @@ interface BaseContract {
     // }
 
     // Virtual keyword
-    function setX(int _x) external;
-
-    
+    function setX(int256 _x) external;
 }
 
 // Implement virtual function
-contract A is BaseContract{
-    int public x; //Need to declare X here.
-    int public y = 10;    
+contract A is BaseContract {
+    int256 public x; //Need to declare X here.
+    int256 public y = 10;
 
-    function setX(int _x) public override{
+    function setX(int256 _x) public override {
         x = _x;
     }
 }
