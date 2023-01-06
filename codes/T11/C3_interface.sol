@@ -20,7 +20,7 @@ interface BaseContract {
 
 // Implement virtual function
 contract A is BaseContract{
-    int public x;
+    int public x; //Need to declare X here.
     int public y = 10;    
 
     function setX(int _x) public override{

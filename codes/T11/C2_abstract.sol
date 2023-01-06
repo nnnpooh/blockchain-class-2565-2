@@ -14,7 +14,6 @@ abstract contract BaseContract {
 
     // Virtual keyword
     function setX(int _x) public virtual;
-
     
 }
 

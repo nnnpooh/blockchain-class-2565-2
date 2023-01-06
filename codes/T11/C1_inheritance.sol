@@ -10,8 +10,14 @@ contract BaseContract {
         x = 5;
         owner = msg.sender;
     }
+
+    function setX(int _x) public {
+        x = _x;
+    }
 }
 
 contract A is BaseContract {
     int public y = 10;
+    // This will give error.
+    // int public x = 30;
 }
