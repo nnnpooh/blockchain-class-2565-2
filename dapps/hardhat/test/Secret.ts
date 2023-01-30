@@ -38,4 +38,21 @@ describe("Secret contract", function () {
 
     expect(await secret.secret()).to.equal("New Message");
   });
+
+  it("check gas used", async function () {
+    const formatEther = ethers.utils.formatEther;
+    const { secret, owner } = await loadFixture(deploySecret);
+    const bal1 = await owner.getBalance();
+    const tx = await secret.connect(owner).changeSecret("New Message");
+    const receipt = await tx.wait();
+    const gas = receipt.gasUsed.mul(receipt.effectiveGasPrice);
+    const bal2 = await owner.getBalance();
+
+    console.log({
+      before: formatEther(bal1),
+      after: formatEther(bal2),
+      gas: formatEther(gas),
+    });
+    expect(bal2).to.equal(bal1.sub(gas));
+  });
 });
