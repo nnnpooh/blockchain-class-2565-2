@@ -7,7 +7,6 @@ contract MySecret {
     string public secret;
 
     constructor(string memory _secret) {
-        console.log("Logging", msg.sender);
         secret = _secret;
     }
 
