@@ -1,13 +1,13 @@
 import { type NextPage } from "next";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { MetaMaskInpageProvider } from "@metamask/providers";
+// import { MetaMaskInpageProvider } from "@metamask/providers";
 
-declare global {
-  interface Window {
-    ethereum?: MetaMaskInpageProvider;
-  }
-}
+// declare global {
+//   interface Window {
+//     ethereum?: MetaMaskInpageProvider;
+//   }
+// }
 
 const Home: NextPage = () => {
   const [account, setAccount] = useState<string | undefined>(undefined);
@@ -25,7 +25,9 @@ const Home: NextPage = () => {
       return;
     }
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as any //Look into this later
+      );
       const accounts: string[] = await provider.send("eth_requestAccounts", []);
       if (accounts.length > 0) {
         setAccount(accounts[0]);
@@ -45,7 +47,9 @@ const Home: NextPage = () => {
     async function getInfo() {
       if (!account || !ethers.utils.isAddress(account)) return;
       if (!window.ethereum) return;
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as any //Look into this later
+      );
       const balanceRaw = await provider.getBalance(account);
       setBalance(ethers.utils.formatEther(balanceRaw));
 
