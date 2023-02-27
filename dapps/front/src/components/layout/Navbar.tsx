@@ -2,15 +2,12 @@ import { FC } from "react";
 import { Button, Container } from "@mantine/core";
 import { IconSeeding, IconUser } from "@tabler/icons";
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { useWorkingStore } from "@src/store/working-store";
-import { useAccount } from "./useAccount";
+// import { useRouter } from "next/router";
+import { useWorkingStore } from "@src/utils/working-store";
 import { ethers } from "ethers";
+
 const Navbar: NextPage = () => {
   // const router = useRouter();
-
-  useAccount();
-
   const [account, isEthereumAvailable] = useWorkingStore((state) => [
     state.account,
     state.isEthereumAvailable,
@@ -22,19 +19,6 @@ const Navbar: NextPage = () => {
         <div className="flex items-center justify-between">
           <IconSeeding />
           <AccountButton />
-
-          <Button
-            className="bg-red-300"
-            onClick={() => {
-              const provider = new ethers.providers.Web3Provider(
-                window.ethereum as any //Look into this later
-              );
-              const signer = provider.getSigner();
-              console.log({ signer });
-            }}
-          >
-            Test
-          </Button>
         </div>
       </Container>
     </div>

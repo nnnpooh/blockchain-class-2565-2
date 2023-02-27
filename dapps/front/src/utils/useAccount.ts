@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { useWorkingStore } from "@src/store/working-store";
+import { useWorkingStore } from "./working-store";
 export function useAccount() {
   const [
     account,

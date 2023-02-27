@@ -4,7 +4,10 @@ import { NotificationsProvider } from "@mantine/notifications";
 import "../styles/globals.css";
 import Navbar from "../components/layout/Navbar";
 import Head from "next/head";
+import { useAccount } from "@src/utils/useAccount";
 const MyApp: AppType = ({ Component, pageProps }) => {
+  // MetaMask account management
+  useAccount();
   return (
     <MantineProvider
       withGlobalStyles
