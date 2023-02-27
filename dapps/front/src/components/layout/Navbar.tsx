@@ -28,14 +28,14 @@ const Navbar: NextPage = () => {
 export default Navbar;
 
 const AccountButton: FC = () => {
-  const [account, network, setAccount, isEthereumAvailable] = useWorkingStore(
-    (state) => [
+  const [account, network, setAccount, isEthereumAvailable, balance] =
+    useWorkingStore((state) => [
       state.account,
       state.network,
       state.setAccount,
       state.isEthereumAvailable,
-    ]
-  );
+      state.balance,
+    ]);
 
   function handleClick() {
     if (!window.ethereum) return;
@@ -64,6 +64,7 @@ const AccountButton: FC = () => {
       <IconUser size={18} />
       {account}
       {JSON.stringify(network)}
+      {balance}
     </div>
   );
 };

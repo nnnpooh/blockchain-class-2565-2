@@ -11,12 +11,15 @@ export function useContract() {
   ]);
   const CONTRACT_ADDRESS = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
 
-  useEffect(() => {
-    if (!account || !isEthereumAvailable) return;
+  function getContract() {
     const provider = new ethers.providers.Web3Provider(window.ethereum as any);
     const signer = provider.getSigner();
     const secret = new ethers.Contract(CONTRACT_ADDRESS, Secret.abi, signer);
-    console.log({ secret });
+    return secret;
+  }
+
+  function fetchSecret() {
+    const secret = getContract();
     if (secret) {
       secret
         .secret()
@@ -25,5 +28,19 @@ export function useContract() {
         })
         .catch((err: any) => console.log(err));
     }
+  }
+
+  useEffect(() => {
+    if (!account || !isEthereumAvailable) return;
+    fetchSecret();
   }, [account]);
+
+  async function writeSecret(_secret: string) {
+    const secret = getContract();
+    const tx = await secret.changeSecret(_secret);
+    await tx.wait();
+    fetchSecret();
+  }
+
+  return { writeSecret };
 }
