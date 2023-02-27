@@ -9,9 +9,13 @@ interface WorkingStoreType {
   account: string;
   balance: string;
   network: NetworkType;
+  chainId: string;
+  isEthereumAvailable: boolean;
   setAccount: (acc: string) => void;
   setBalance: (bal: string) => void;
   setNetwork: (net: NetworkType) => void;
+  setChainId: (id: string) => void;
+  setIsEthereumAvailable: (b: boolean) => void;
 }
 
 export const useWorkingStore = create<WorkingStoreType>((set) => ({
@@ -21,7 +25,11 @@ export const useWorkingStore = create<WorkingStoreType>((set) => ({
     id: null,
     name: null,
   },
-  setAccount: (acc) => set((state) => ({ account: acc })),
-  setBalance: (bal) => set((state) => ({ balance: bal })),
-  setNetwork: (net) => set((state) => ({ network: net })),
+  chainId: "",
+  isEthereumAvailable: false,
+  setAccount: (acc) => set(() => ({ account: acc })),
+  setBalance: (bal) => set(() => ({ balance: bal })),
+  setNetwork: (net) => set(() => ({ network: net })),
+  setChainId: (id) => set(() => ({ chainId: id })),
+  setIsEthereumAvailable: (b) => set(() => ({ isEthereumAvailable: b })),
 }));
