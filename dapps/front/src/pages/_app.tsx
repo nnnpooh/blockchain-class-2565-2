@@ -4,10 +4,12 @@ import { NotificationsProvider } from "@mantine/notifications";
 import "../styles/globals.css";
 import Navbar from "../components/layout/Navbar";
 import Head from "next/head";
-import { useAccount } from "@src/utils/useAccount";
+import { useEthereum } from "@src/utils/useEthereum";
+import { useMetaMask } from "@src/utils/useMetaMask";
 const MyApp: AppType = ({ Component, pageProps }) => {
   // MetaMask account management
-  useAccount();
+  useEthereum();
+  useMetaMask();
   return (
     <MantineProvider
       withGlobalStyles

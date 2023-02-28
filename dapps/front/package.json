@@ -17,6 +17,7 @@
     "@mantine/notifications": "^5.10.5",
     "@metamask/providers": "^10.2.1",
     "@tabler/icons": "^1.118.0",
+    "alchemy-sdk": "^2.4.3",
     "ethers": "^5.7.2",
     "next": "13.1.6",
     "react": "18.2.0",

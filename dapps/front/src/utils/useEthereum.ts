@@ -1,61 +1,50 @@
 import { ethers } from "ethers";
-import { useEffect, useState } from "react";
-import { useWorkingStore } from "./working-store";
-export function useAccount() {
+import { useEffect } from "react";
+import { useMetaMaskStore } from "./stores";
+export function useEthereum() {
   const [
-    account,
     setAccount,
-    setBalance,
-    setNetwork,
     isEthereumAvailable,
     setIsEthereumAvailable,
-    chainId,
     setChainId,
-  ] = useWorkingStore((state) => [
-    state.account,
+    setProvider,
+  ] = useMetaMaskStore((state) => [
     state.setAccount,
-    state.setBalance,
-    state.setNetwork,
     state.isEthereumAvailable,
     state.setIsEthereumAvailable,
-    state.chainId,
     state.setChainId,
+    state.setProvider,
   ]);
 
+  // https://dev.to/vvo/how-to-solve-window-is-not-defined-errors-in-react-and-next-js-5f97
   useEffect(() => {
-    async function getInfo() {
-      if (!account || !ethers.utils.isAddress(account)) return;
-      if (!isEthereumAvailable) return;
+    if (typeof window !== "undefined" && "ethereum" in window) {
+      setIsEthereumAvailable(true);
       const provider = new ethers.providers.Web3Provider(
-        window.ethereum as any //Look into this later
+        window.ethereum as any
       );
-      const balanceRaw = await provider.getBalance(account);
-      setBalance(ethers.utils.formatEther(balanceRaw));
-
-      const nw = await provider.getNetwork();
-      setNetwork({ id: nw.chainId, name: nw.name });
+      setProvider(provider);
     }
+  }, []);
 
-    getInfo();
-  }, [account, chainId]);
-
+  // Setup listener
   useEffect(() => {
-    if (!window.ethereum) {
-      // Nothing to do here... no ethereum provider found
-      return;
-    }
+    if (!window.ethereum || !isEthereumAvailable) return;
     const accountWasChanged = (accounts: any) => {
       setAccount(accounts[0]);
       console.log("accountWasChanged");
     };
-    const metaMaskConnect = async () => {
+    const metaMaskConnect = () => {
       console.log("metaMaskConnected");
     };
-
     const metaMaskChainChanged = (id: any) => {
       setChainId(id);
+      //  Need to create new provider every time network changes.
+      const provider = new ethers.providers.Web3Provider(
+        window.ethereum as any
+      );
+      setProvider(provider);
     };
-
     const clearAccount = () => {
       setAccount("");
       console.log("clearAccount");
@@ -65,7 +54,6 @@ export function useAccount() {
     window.ethereum.on("connect", metaMaskConnect);
     window.ethereum.on("chainChanged", metaMaskChainChanged);
     window.ethereum.on("disconnect", clearAccount);
-
     window.ethereum.request({ method: "eth_requestAccounts" }).then(
       (accounts) => {
         // When the browser is refreshed, you need to set the account from this action.
@@ -81,12 +69,5 @@ export function useAccount() {
       window.ethereum?.removeListener("connect", metaMaskConnect);
       window.ethereum?.removeListener("disconnect", clearAccount);
     };
-  }, []);
-
-  // https://dev.to/vvo/how-to-solve-window-is-not-defined-errors-in-react-and-next-js-5f97
-  useEffect(() => {
-    if (typeof window !== "undefined" && "ethereum" in window) {
-      setIsEthereumAvailable(true);
-    }
-  }, []);
+  }, [isEthereumAvailable]);
 }

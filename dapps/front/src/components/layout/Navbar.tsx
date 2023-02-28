@@ -3,15 +3,11 @@ import { Button, Container } from "@mantine/core";
 import { IconSeeding, IconUser } from "@tabler/icons";
 import type { NextPage } from "next";
 // import { useRouter } from "next/router";
-import { useWorkingStore } from "@src/utils/working-store";
+import { useMetaMaskStore } from "@src/utils/stores";
 import { ethers } from "ethers";
 
 const Navbar: NextPage = () => {
   // const router = useRouter();
-  const [account, isEthereumAvailable] = useWorkingStore((state) => [
-    state.account,
-    state.isEthereumAvailable,
-  ]);
 
   return (
     <div className="bg-gray-50 py-4">
@@ -29,7 +25,7 @@ export default Navbar;
 
 const AccountButton: FC = () => {
   const [account, network, setAccount, isEthereumAvailable, balance] =
-    useWorkingStore((state) => [
+    useMetaMaskStore((state) => [
       state.account,
       state.network,
       state.setAccount,

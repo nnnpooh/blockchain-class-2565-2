@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { useContract } from "@src/utils/useContract";
-import { useWorkingStore } from "@src/utils/working-store";
+import { useContract } from "./useContract";
+import { useWorkingStore } from "@src/utils/stores";
 import { Container, Input, Button } from "@mantine/core";
 const Home: FC = () => {
   const { writeSecret } = useContract();
