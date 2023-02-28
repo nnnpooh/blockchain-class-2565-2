@@ -13,6 +13,13 @@ export function useContract() {
   const [setSecret] = useWorkingStore((state) => [state.setSecret]);
   const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
 
+  const settings = {
+    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    network: Network.ETH_GOERLI,
+  };
+
+  const alchemy = new Alchemy(settings);
+
   function getContract() {
     if (!isEthereumAvailable || !provider) return null;
     const signer = provider.getSigner();
