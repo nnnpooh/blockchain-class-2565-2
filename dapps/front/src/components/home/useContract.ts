@@ -1,8 +1,7 @@
 import { useEffect } from "react";
-import Secret from "@src/abi/secret";
+import { SecretContract, contractAddress } from "@src/abi/secret";
 import { useMetaMaskStore, useWorkingStore } from "@src/utils/stores";
 import { ethers } from "ethers";
-import { Network, Alchemy } from "alchemy-sdk";
 
 export function useContract() {
   const [account, isEthereumAvailable, provider] = useMetaMaskStore((state) => [
@@ -11,19 +10,15 @@ export function useContract() {
     state.provider,
   ]);
   const [setSecret] = useWorkingStore((state) => [state.setSecret]);
-  const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
-
-  const settings = {
-    apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
-    network: Network.ETH_GOERLI,
-  };
-
-  const alchemy = new Alchemy(settings);
 
   function getContract() {
     if (!isEthereumAvailable || !provider) return null;
     const signer = provider.getSigner();
-    const secret = new ethers.Contract(CONTRACT_ADDRESS, Secret.abi, signer);
+    const secret = new ethers.Contract(
+      contractAddress,
+      SecretContract.abi,
+      signer
+    );
     return secret;
   }
 

@@ -1,3 +1,3 @@
 import Secret from "./Secret.json";
-
-export default Secret;
+export const SecretContract = Secret;
+export const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS || "";
