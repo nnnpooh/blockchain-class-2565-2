@@ -1,19 +1,23 @@
 import { FC } from "react";
 import { Button, Container } from "@mantine/core";
-import { IconSeeding, IconUser } from "@tabler/icons";
+import {
+  IconUser,
+  IconShieldLock,
+  IconLink,
+  IconCurrencyEthereum,
+} from "@tabler/icons";
 import type { NextPage } from "next";
-// import { useRouter } from "next/router";
 import { useMetaMaskStore } from "@src/utils/stores";
-import { ethers } from "ethers";
 
 const Navbar: NextPage = () => {
-  // const router = useRouter();
-
   return (
     <div className="bg-gray-50 py-4">
       <Container size="xl">
         <div className="flex items-center justify-between">
-          <IconSeeding />
+          <IconShieldLock
+            size={50}
+            className="cursor-pointer rounded-full border border-sky-800 p-2 text-sky-800 hover:bg-sky-500 hover:text-white"
+          />
           <AccountButton />
         </div>
       </Container>
@@ -55,12 +59,23 @@ const AccountButton: FC = () => {
       </Button>
     );
   }
+
   return (
-    <div className="flex items-center gap-1 rounded-md bg-gray-400 px-3 py-2  text-sm italic text-white hover:bg-rose-800">
-      <IconUser size={18} />
-      {account}
-      {JSON.stringify(network)}
-      {balance}
+    <div className="flex gap-2">
+      {network?.name && (
+        <div className="flex items-center gap-1 rounded-md bg-gray-400 px-3 py-2 text-sm italic text-white">
+          <IconLink size={18} />
+          {network.name?.toUpperCase()}
+        </div>
+      )}
+      <div className="flex items-center gap-1 rounded-md bg-gray-400 px-3 py-2 text-sm italic text-white">
+        <IconUser size={18} />
+        {account}
+      </div>
+      <div className="flex items-center gap-1 rounded-md bg-gray-400 px-3 py-2 text-sm italic text-white">
+        <IconCurrencyEthereum size={18} />
+        {balance}
+      </div>
     </div>
   );
 };

@@ -21,7 +21,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         headings: { fontFamily: "Prompt" },
       }}
     >
-      <NotificationsProvider>
+      <NotificationsProvider position="top-center">
         <Head>
           <title>Home</title>
           <meta name="description" content="Home" />
