@@ -50,7 +50,11 @@ const AccountButton: FC = () => {
   }
 
   if (!isEthereumAvailable) {
-    return <div>Please Install MetaMask</div>;
+    return (
+      <div className="rounded-md bg-red-300 p-2 text-sm italic text-white">
+        Please Install MetaMask
+      </div>
+    );
   }
   if (!account) {
     return (
