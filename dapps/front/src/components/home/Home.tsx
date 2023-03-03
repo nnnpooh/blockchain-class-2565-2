@@ -21,7 +21,9 @@ const Home: FC = () => {
           disabled={isLoading || isError}
         />
         <Button
-          onClick={() => writeSecret(text)}
+          onClick={() => {
+            void writeSecret(text);
+          }}
           className="bg-sky-600 hover:bg-sky-700"
           disabled={isLoading || isError}
         >
