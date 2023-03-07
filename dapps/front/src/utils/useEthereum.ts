@@ -55,12 +55,12 @@ export function useEthereum() {
     window.ethereum.on("chainChanged", metaMaskChainChanged);
     window.ethereum.on("disconnect", clearAccount);
     window.ethereum.request({ method: "eth_requestAccounts" }).then(
-      (accounts) => {
+      (accounts: any) => {
         // When the browser is refreshed, you need to set the account from this action.
         console.log("accounts", accounts);
         if (accounts && Array.isArray(accounts)) setAccount(accounts[0] || "");
       },
-      (error) => {}
+      (error: any) => {}
     );
 
     return () => {
